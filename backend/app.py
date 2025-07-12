@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import os
 
+from llm_client import responder_llm
+
 app = Flask(__name__)
 
 ########### ELIMINAR PARA SUBIR A PRODUCCIÓN #############
@@ -33,8 +35,8 @@ def feedback():
     if not texto:
         return jsonify({"error": "Campo 'texto' vacío"}), 400
 
-    # Respuesta provisional
-    respuesta = f"Gracias por tu feedback: '{texto}'"
+    # Respuesta del LLM
+    respuesta = responder_llm(texto) # llamada a la función en llm_client.py
     return jsonify({"respuesta": respuesta}), 200
 
 app.run()
