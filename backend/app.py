@@ -1,19 +1,26 @@
-from flask import Flask, request, jsonify
 import os
-
 from llm_client import responder_llm
+from db import init_db, guardar_postgres, leer_historial
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-########### ELIMINAR PARA SUBIR A PRODUCCIÓN #############
+# creamos la tabla feedback si aún no existe
+init_db()
+
+#------------ ELIMINAR PARA SUBIR A PRODUCCIÓN ------------#
 app.config['DEBUG'] = True ### SÓLO PARA PRUEBAS 
 
-################## HOME ##################
+
+
+#------------ HOME ------------#
 @app.route("/", methods=["GET"])
 def main():
     return "An LLM responding to users' feedback."
 
-################## /FEEDBACK ##################
+
+
+#------------ /FEEDBACK ------------#
 @app.route("/feedback", methods=["POST"])
 def feedback():
     # leemos el body de una solicitud http que ha llegado al servidor
@@ -37,6 +44,23 @@ def feedback():
 
     # Respuesta del LLM
     respuesta = responder_llm(texto) # llamada a la función en llm_client.py
+    guardar_postgres(texto, respuesta) # guardamos feedback y respuesta en la base de datos postgres
     return jsonify({"respuesta": respuesta}), 200
 
-app.run()
+
+
+#------------ /HISTORY ------------#
+@app.route("/history", methods=["GET"])
+def history():
+    try:
+        limite = int(request.args.get("n", 20))
+    except ValueError:
+        limite = 20
+    registros = leer_historial(limite) # lista de diccionarios
+    return jsonify(registros), 200
+
+
+
+if __name__ == "__main__":
+    port = int(os.getenv("FLASK_PORT", 8000))
+    app.run(host="0.0.0.0", port=port, debug=app.config["DEBUG"])

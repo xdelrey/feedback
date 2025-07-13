@@ -3,3 +3,6 @@
 
 # .env
 .env
+
+# base de datos
+/data/feedback.db
