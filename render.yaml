@@ -44,4 +44,4 @@ services:
       # Render resuelve automáticamente http://backend:8000
       # gracias al DNS interno, así que no necesitas URL pública.
       - key: BACKEND_URL
-        value: https://backend:8000
+        value: http://backend:8000
