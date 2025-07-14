@@ -9,7 +9,7 @@ services:
     name: backend
     env: docker
     plan: free
-    dockerfilePath: Dockerfile.backend
+    dockerfilePath: dockerfile.backend
     envVars:
       - key: PGHOST
         fromDatabase:
@@ -39,7 +39,7 @@ services:
     name: frontend
     env: docker
     plan: free
-    dockerfilePath: Dockerfile.frontend
+    dockerfilePath: dockerfile.frontend
     envVars:
       # Render resuelve automáticamente http://backend:8000
       # gracias al DNS interno, así que no necesitas URL pública.
