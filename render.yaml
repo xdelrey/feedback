@@ -4,6 +4,7 @@ databases:
     user: postgres
 
 services:
+  # -------- BACKEND -------- #
   - type: web
     name: backend
     env: docker
@@ -11,32 +12,36 @@ services:
     dockerfilePath: Dockerfile.backend
     envVars:
       - key: PGHOST
-        fromDatabase: feedback-db
-        property: host
+        fromDatabase:
+          name: feedback-db
+          property: host
       - key: PGPORT
-        fromDatabase: feedback-db
-        property: port
+        fromDatabase:
+          name: feedback-db
+          property: port
       - key: PGDATABASE
-        fromDatabase: feedback-db
-        property: database
+        fromDatabase:
+          name: feedback-db
+          property: database
       - key: PGUSER
-        fromDatabase: feedback-db
-        property: user
+        fromDatabase:
+          name: feedback-db
+          property: user
       - key: PGPASSWORD
-        fromDatabase: feedback-db
-        property: password
-      - key: GROQ_API_KEY
-        sync: false          # la añades tú en el panel
-    ports:                   # Render autodetecta, pero lo declaramos
-      - port: 8000
+        fromDatabase:
+          name: feedback-db
+          property: password
+      - key: GROQ_API_KEY    # la añadimos en el panel
+        sync: false          # evita que render la escriba en el yaml
 
+  # -------- FRONTEND -------- #
   - type: web
     name: frontend
     env: docker
     plan: free
     dockerfilePath: Dockerfile.frontend
     envVars:
+      # Render resuelve automáticamente http://backend:8000
+      # gracias al DNS interno, así que no necesitas URL pública.
       - key: BACKEND_URL
-        value: https://backend.onrender.com    # Render lo genera al crear
-    ports:
-      - port: 8501
+        value: https://backend:8000
