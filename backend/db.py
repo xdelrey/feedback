@@ -12,11 +12,14 @@ from psycopg2.extras import RealDictCursor
 # ---------- Configuración ---------- #
 load_dotenv()  # lee .env solo una vez al importar el módulo
 
-PGHOST = os.getenv("PGHOST", "localhost")
-PGPORT = os.getenv("PGPORT", "5432")
-PGDATABASE = os.getenv("PGDATABASE", "feedback")
-PGUSER = os.getenv("PGUSER", "postgres")
-PGPASSWORD = os.getenv("PGPASSWORD", "")
+PGHOST = os.getenv("PGHOST")
+PGPORT = os.getenv("PGPORT")
+PGDATABASE = os.getenv("PGDATABASE")
+PGUSER = os.getenv("PGUSER")
+PGPASSWORD = os.getenv("PGPASSWORD")
+
+if os.getenv("RENDER") == "true":
+    _CONN_INFO["sslmode"] = "require"
 
 _CONN_INFO = {
     "host": PGHOST,

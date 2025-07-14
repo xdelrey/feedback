@@ -54,6 +54,7 @@ def mostrar_historial() -> None:
         return
 
     df = pd.DataFrame(registros)
+    
     # Formateamos fecha y renombramos columnas para legibilidad
     df["fecha"] = pd.to_datetime(df["fecha"]).dt.tz_localize(None)
     st.dataframe(
