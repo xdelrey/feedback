@@ -1,7 +1,6 @@
 databases:
   - name: feedback-db
     databaseName: feedback
-    user: postgres
 
 services:
   # -------- BACKEND -------- #
