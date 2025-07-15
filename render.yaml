@@ -3,6 +3,7 @@ services:
   - type: web
     name: backend
     env: docker
+    region: frankfurt
     plan: free
     dockerfilePath: dockerfile.backend
     envVars:
