@@ -122,10 +122,7 @@ curl -X POST http://127.0.0.1:8000/feedback      -H "Content-Type: application/j
 - Implementar filtros de moderación y protección contra spam.  
 - Empaquetar todo en una sola imagen Docker y desplegar en Render/AWS.  
 
-## Contribuir
-Las *pull requests* son bienvenidas: por favor abre primero un *issue* para discutir cambios importantes.
-
 ## Licencia
-Distribuido bajo la licencia MIT — ver `LICENSE` para más detalles.
-Xabi del Rey - Product Manager y Bootcamper
+Distribuido bajo la licencia MIT — ver `LICENSE` para más detalles.<br>
+Xabi del Rey - Product Manager y Bootcamper<br>
 https://www.linkedin.com/in/xabidelrey/
