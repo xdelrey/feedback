@@ -5,7 +5,8 @@ from typing import List, Dict
 import pandas as pd
 
 # ---------- CONFIG ----------- #
-BACKEND_URL = os.getenv("BACKEND_URL", "https://localhost:8000")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://backend:8000")
+st.caption(f"BACKEND_URL = {BACKEND_URL}")
 
 st.set_page_config(
     page_title="Te escuchamos! Proporciona tu feedback sobre el servicio aquí.",
